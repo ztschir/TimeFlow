@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+		<!-- Licensed Materials - Property of IBM
+			 5725-G92 (C) Copyright IBM Corp. 2006, 2012. All Rights Reserved.
+			 US Government Users Restricted Rights - Use, duplication or
+             disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<!-- Attribute "id" must be identical to application folder name -->
+<application id="TimeFlow" platformVersion="5.0"
+	xmlns="http://www.worklight.com/application-descriptor" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<displayName>TimeFlow</displayName>
+	<description>TimeFlow</description>
+	<author>
+		<name>application's author</name>
+		<email>application author's e-mail</email>
+		<copyright>Copyright My Company</copyright>
+		<homepage>http://mycompany.com</homepage>
+	</author>
+	<height>460</height>
+	<width>320</width>
+	<mainFile>TimeFlow.html</mainFile>
+	<thumbnailImage>common/images/thumbnail.png</thumbnailImage> 
+
+	<usage requireAuthentication="never" />
+	
+	<!-- 
+		Uncomment the following option to enable device provisioning
+		<authentication>
+	    	<device realm="WLDeviceAutoProvisioningRealm"/>
+		</authentication>
+	-->
+	<!--
+		Uncomment one of the following options to require authentication upon using the application 
+		<usage requireAuthentication="onStartup"><realm name="SampleAppRealm"/></usage> 
+		<usage requireAuthentication="onDemand" ><realm name="SampleAppRealm"/></usage>
+	-->
+	
+	<worklightServerRootURL>http://${local.IPAddress}:8080</worklightServerRootURL>
+	<!-- 
+		Uncomment one of the following options to use a different value for the Worklight Server root URL
+		<worklightServerRootURL>http://${local.hostname}:8080</worklightServerRootURL>
+		<worklightServerRootURL>http://${local.fullhostname}:8080</worklightServerRootURL>
+		<worklightServerRootURL>http://${local.IPAddress}:8080</worklightServerRootURL>
+	 -->
+	
+	<!-- 	
+	<android version="1.0" sharedUserId="some.valid.shared.user.id">
+		Uncomment and update push sender ID in order to use push notifications for android
+		<pushSender id="my.company@gmail.com" password="mypass">
+	</android>
+	-->
+</application>
