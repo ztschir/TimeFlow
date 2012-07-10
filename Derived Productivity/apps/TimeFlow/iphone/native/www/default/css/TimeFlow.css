@@ -1,0 +1,23 @@
+
+/* Stylesheet content from css/TimeFlow.css in folder common */
+
+/*Worklight container div */
+#content {
+	height: 460px;
+	margin: 0 auto;
+	width: 320px;
+}
+/* Stylesheet content from css/TimeFlow.css in folder iphone */
+
+/* this CSS file extends the application CSS file found under common\css */
+
+/* body should stretch in an iPhone application */
+body {
+	height: auto;
+	overflow: auto;
+}
+
+/*Worklight container div */
+#content {
+	width: 100%;
+}
