@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>protocol</key> 
+	<key>protocol</key>
 	<string>http</string>
 	<key>host</key>
-	<string>172.17.136.12</string>
+	<string>192.168.0.5</string>
 	<key>port</key>
 	<string>8080</string>
 	<key>wlServerContext</key>
@@ -25,6 +25,6 @@
 	<key>ignoredFileExtensions</key>
 	<string></string>
 	<key>wlMainFile</key>
-	<string>TimeFlow.html</string>	
+	<string>TimeFlow.html</string>
 </dict>
 </plist>

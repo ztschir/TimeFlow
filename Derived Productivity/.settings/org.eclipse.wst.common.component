@@ -2,6 +2,7 @@
 <project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="Derived Productivity">
         <wb-resource deploy-path="/" source-path="/apps/TimeFlow/common"/>
+        <wb-resource deploy-path="/" source-path="/apps/TimeFlow/iphone"/>
         <property name="context-root" value="Derived_Productivity"/>
     </wb-module>
 </project-modules>
