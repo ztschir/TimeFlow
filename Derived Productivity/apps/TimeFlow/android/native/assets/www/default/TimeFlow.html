@@ -1,0 +1,55 @@
+<!DOCTYPE html><html>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+        <title>TimeFlow</title>
+        <link href="images/favicon.png" rel="shortcut icon">
+        <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/TimeFlow.css" rel="stylesheet">
+	
+        <link href="wlclient/css/wlclient.css" rel="stylesheet">
+        <link href="wlclient/css/wlgap.android.css" rel="stylesheet">
+        <script type="text/javascript">
+		// Define WL namespace.
+		var WL = WL ? WL : {};
+
+		/**
+		 * WLClient configuration variables.
+		 * Values are injected by the deployer that packs the gadget.
+		 */
+		WL.StaticAppProps = {
+   "APP_DISPLAY_NAME": "TimeFlow",
+   "APP_LOGIN_TYPE": "never",
+   "APP_SERVICES_URL": "\/apps\/services\/",
+   "APP_VERSION": "1.0",
+   "ENVIRONMENT": "android",
+   "LOGIN_DISPLAY_TYPE": "embedded",
+   "LOGIN_REALM": null,
+   "WORKLIGHT_ROOT_URL": "\/apps\/services\/api\/TimeFlow\/android\/"
+};</script>
+		<script src="wlclient/js/cordova.js"></script>
+		<script src="common/js/wljq.js"></script>
+		<script src="common/js/base.js"></script>
+		<script src="wlclient/js/messages.js"></script>
+		<script src="common/js/wlcommon.js"></script>
+		<script src="wlclient/js/diagnosticDialog.js"></script>
+		<script src="wlclient/js/deviceAuthentication.js"></script>
+		<script src="wlclient/js/window.js"></script>
+		<script src="wlclient/js/worklight.js"></script>
+		<script src="wlclient/js/wlclient.js"></script>
+		<script src="wlclient/js/wlfragments.js"></script>
+		<script src="wlclient/js/encryptedcache.js"></script>
+		<script src="wlclient/js/checksum.js"></script>
+		<script src="wlclient/js/wlgap.android.js"></script>
+    </head>
+    <body id="content" onload="WL.Client.init({})" style="display: none">
+		TimeFlow
+		<!-- application UI goes here -->
+
+		<script src="js/TimeFlow.js"></script>
+		<script src="js/messages.js"></script>
+		<script src="js/auth.js"></script>
+	
+    </body>
+</html>
