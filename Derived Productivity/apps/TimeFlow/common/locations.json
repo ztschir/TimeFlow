@@ -1,0 +1,31 @@
+{
+	"locations": [
+		{
+			"location": "Sleep"
+		},
+		{
+			"location": "Work"
+		},
+		{
+			"location": "Fitness"
+		},
+		{
+			"location": "Class"
+		},
+		{
+			"location": "Study"
+		},
+		{
+			"location": "TV"
+		},
+		{
+			"location": "Leisure"
+		},
+		{
+			"location": "Custom1"
+		},
+		{
+			"location": "Custom2"
+		}
+	]
+}
