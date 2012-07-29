@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+
+<title>Time Flow</title>
+
+<!-- css and settings from WL  -->
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="shortcut icon" href="images/favicon.png" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+<!-- css and settings from WL  -->
+
+<link href="jquery-mobile/themes/my_custome_theme.min.css" rel="stylesheet" type="text/css"/>
+<link href="jquery-mobile/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="jqplot/jquery.jqplot.min.css" rel="stylesheet" type="text/css"/>
+
+
+<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+
+<script src="js/timeflow.js" type="text/javascript"></script>
+
+
+<!-- viewport -->
+<meta name="viewport" content="width=device-width">
+<!-- iOS stuff -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+<meta http-equiv="cleartype" content="on">
+<!-- For mobile browsers that do not recognize the viewport tag -->
+<meta name="MobileOptimized" content="320" />
+
+
+</head> 
+
+
+<body id="content"> <!-- style="display: none"> -->
+
+<div id="home" data-role="page" data-theme="c">
+	<div align="right" data-role="header" >
+    	<h1>Time Flow</h1>
+        <a href="#settings" id="settings_button" data-icon="gear" data-iconpos="notext" data-role="button" class="ui-btn-right">Button</a>
+    </div>
+	
+    <div class="ui-title" data-role="controlgroup" data-type="horizontal">
+    	<a href="#" style="width:49%" data-role="button" data-transition="flip">Activity</a>
+    	<a href="#timechart" id="chart_button" style="width:49%" data-role="button" data-transition="flip">Time Chart</a>
+    </div>
+	
+    <!-- Home screen navigation buttons -->
+    <div class="ui-grid-b" id="main_view"></div>
+    
+    <!-- Check out button -->
+    <div style="display: none" id="check_out_button">
+    
+	    <div class="ui-block-'+String.fromCharCode(p_char)+'">
+		  <a href="#home" data-role="button" data-theme="c" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-c">
+		  	<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">
+		  		<span class="ui-btn-text checked_out"></span>
+		  	</span>
+		  </a>
+		</div>
+
+    </div>
+	
+
+</div>
+
+<div data-role="page" id="timechart">
+    <div data-role="header" data-add-back-btn="true">
+        <!--<a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>-->
+        <h1>Time Chart</h1>
+    </div>
+    <div class="ui-title" data-role="controlgroup" data-type="horizontal" >
+        <a href="#home" data-role="button" style="width:49%" data-transition="flip" data-direction="reverse">Activity</a>
+		<a href="#" data-role="button" style="width:49%" data-transition="flip">Time Chart</a>
+    </div>
+    <div id="chart" style="width:100%; height:100%;"></div>
+</div>
+
+<div data-role="page" id="confirm">
+  <div data-role="header">
+    <a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>
+    <h1>Check-In</h1>
+  </div>
+  <div data-role="content">
+    <h3 id="check_in_loc">You've Checked-In: </h3>
+  </div>
+  
+</div>
+
+<div data-role="page" id="settings">
+  <div data-role="header">
+    <a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>
+    <h1>Settings</h1>
+  </div>
+  <div data-role="content">
+  	<ul data-role="listview" data-inset="true" data-theme="c" id="activities_list"></ul>
+  </div>
+  
+</div>
+
+
+
+</body>
+</html>
