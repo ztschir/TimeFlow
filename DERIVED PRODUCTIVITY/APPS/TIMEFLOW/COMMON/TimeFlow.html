@@ -94,9 +94,11 @@
   
 </div>
 
+
+
+<!-- 
 <div data-role="page" id="settings">
   <div data-role="header">
-    <a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>
     <h1>Settings</h1>
   </div>
   <div data-role="content">
@@ -104,6 +106,48 @@
   </div>
   
 </div>
+-->
+
+
+
+
+
+<div data-role="page" id="settings">
+  <div data-role="header">
+    <a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>
+    <h1>Settings</h1>
+  </div>
+  
+  <div data-role="content">
+    <div data-role="collapsible-set">
+      <div data-role="collapsible">
+        <h3>Add Custom Activity</h3>
+        <ul data-role="listview" data-split-icon="arrow-r">
+			<div data-role="fieldcontain">
+				<input type="text" name="textinput" id="add_activity_name" value="" placeholder="Enter activity name"  />
+				<a href="#" id="add_activity_button" data-role="button" data-icon="arrow-r" data-inline="true">Add</a>
+			</div>
+		</ul>
+      </div>
+      
+      <div data-role="collapsible" >
+			<h3>Delete Activity</h3>
+			<ul id="delete_current_activities_list" data-role="listview" data-split-icon="delete"></ul>
+      </div>
+      
+      <div data-role="collapsible">
+      	<h3>Clear User Data</h3>
+         <a href="#" data-role="button" data-inline="true" id="clear_check_in_button">Clear Data</a>
+      </div>
+    </div>
+ 
+  </div>
+ 
+</div>
+
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 var db;
+var active_checkin;
 
 jQuery(document).ready(function()
 {
@@ -44,6 +45,19 @@ function load_buttons()
 	db.transaction(load_activities, errorCB, successCB);
 }
 
+function reload_activity_buttons(tx)
+{
+	// delete all buttons and reload them
+	jQuery("#main_view").html("");
+	tx.executeSql('SELECT * FROM ACTIVITIES',[],function(tx,results) {
+		for(var i = 0; i < results.rows.length; i++)
+		{
+			var p_char = 97 + (i % 3); 
+		    create_button(results.rows.item(i).name,p_char);
+		}
+	});
+}
+
 function load_activities(tx)
 {
 	tx.executeSql('SELECT * FROM ACTIVITIES',[],function(tx,results) {
@@ -65,8 +79,72 @@ function load_activities(tx)
 		jQuery("#settings_button").click(function(){
 			load_settings();
 		});
+		jQuery("#add_activity_button").click(function(){
+			add_activity();
+		})
+		jQuery("#clear_check_in_button").click(function(){
+			showConfirm();
+			
+		    function onConfirm(buttonIndex)
+		    {
+		    	if(buttonIndex == 1)
+		        {
+		        	clear_check_in_data();
+		        }
+		    }
+
+		    function showConfirm() {
+		        navigator.notification.confirm(
+		            'Are you sure you want to clear user data?',  // message
+		            onConfirm,              // callback to invoke with index of button pressed
+		            'Clear User Data',            // title
+		            'Yes,No'          // buttonLabels
+		        );
+		    }
+		});
 	});
 }
+
+function add_activity()
+{
+	var new_activity_name = jQuery("#add_activity_name").val();
+	jQuery("#add_activity_name").val("");
+	db.transaction(add_activity_to_db, errorCB, successCB);
+	
+	function add_activity_to_db(tx)
+	{
+		tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', [new_activity_name]);
+		create_activity_delete_button(new_activity_name);
+		create_page(new_activity_name);
+		jQuery(".check_in").unbind('click');
+		jQuery(".check_in").click(function() {
+			checkin(this);
+		});
+		db.transaction(reload_activity_buttons, errorCB, successCB);
+		navigator.notification.alert(
+	    	    'Added '+new_activity_name+' to list of activities.',  // message
+	    	    function() {},         // callback
+	    	    ' '            // title
+	    	);
+	}
+}
+
+function clear_check_in_data()
+{
+	db.transaction(clearEntriesDB, errorCB, successCB);
+	function clearEntriesDB(tx)
+	{
+	    tx.executeSql('DROP TABLE IF EXISTS ENTRIES');
+	    tx.executeSql('CREATE TABLE IF NOT EXISTS ENTRIES (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, status, location, start_time, end_time)');
+	    navigator.notification.alert(
+	    	    'Data Cleared!',  // message
+	    	    function() {},         // callback
+	    	    ' '            // title
+	    	);
+	}
+};
+
+
 
 function display_check_out()
 {
@@ -107,7 +185,7 @@ function checkin(clicked_button)
 
     function display_loc(position)
     {
-		console.log(location+"   -   Lat: "+position.coords.latitude+"   Long: "+position.coords.longitude);
+		//console.log(location+"   -   Lat: "+position.coords.latitude+"   Long: "+position.coords.longitude);
     }
 
     function handle_errors(error)
@@ -132,6 +210,7 @@ function checkin(clicked_button)
     {
     	tx.executeSql('INSERT INTO ENTRIES (status, location, start_time, end_time) VALUES (?,?,?,?)', [status,location,start_time,-1]);
     	jQuery(".checked_out").html("Check out of "+location);
+    	active_checkin = location;
     }
 }
 
@@ -166,6 +245,8 @@ function display_chart()
     
     function render_graph()
     {
+    	if(data.length){
+          jQuery("#chart").html("");
     	  jQuery.jqplot.config.enablePlugins = true;
     	  plot7 = jQuery.jqplot('chart', 
     	    [data], 
@@ -175,6 +256,9 @@ function display_chart()
     	      legend: { show:true }
     	    }
     	  );
+    	}
+    	else
+    	  jQuery("#chart").html("No check ins have been made.");
     }
 
     function derender_graph()
@@ -214,19 +298,62 @@ function create_page(page_name)
     '</div></div>');
 }
 
+function delete_page(page_name)
+{
+	jQuery("#page_name").remove();
+}
+
 function load_settings()
 {
-	jQuery("#activities_list").html("");
-    db.transaction(load_activities_db, errorCB, display_check_out);
+	jQuery("#delete_current_activities_list").html("");
+    db.transaction(load_activities_db, errorCB, successCB);
 	
 	function load_activities_db(tx)
 	{
 		tx.executeSql('SELECT * FROM ACTIVITIES',[],function(tx,results) {
 			for(var i = 0; i < results.rows.length; i++)
 			{
-				jQuery("#activities_list").append('<li data-icon="delete"><a href="#">'+results.rows.item(i).name+'</a></li>');
+				create_activity_delete_button(results.rows.item(i).name);
 			}
 			
 		});
 	}
+}
+
+function create_activity_delete_button(name)
+{
+	jQuery("#delete_current_activities_list").append('<li data-theme="c" id="delete_button_for_'+name+'" class="ui-btn ui-btn-icon-right ui-li ui-li-has-alt ui-btn-up-c">'+
+        	'<div class="ui-btn-inner ui-li ui-li-has-alt" aria-hidden="true">'+
+        		'<div class="ui-btn-text">'+
+        			'<a href="#" class="ui-link-inherit">'+name+'</a>'+
+        		'</div>'+
+        	'</div>'+
+        	'<a href="#" title="'+name+'" class="ui-li-link-alt ui-btn ui-btn-up-c delete_button" data-theme="c">'+
+    	    	'<span class="ui-btn-inner" aria-hidden="true">'+
+    	    		'<span class="ui-btn-text"></span>'+
+    	    		'<span title="" data-theme="b" class="ui-btn ui-btn-up-b ui-btn-icon-notext ui-btn-corner-all ui-shadow">'+
+    		    		'<span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true">'+
+    		    			'<span class="ui-btn-text"></span>'+
+    		    			'<span class="ui-icon ui-icon-delete ui-icon-shadow"></span>'+
+    		    			'</span>'+
+    		    	'</span>'+
+    		    '</span>'+
+    	    '</a>'+
+    	'</li>');
+	jQuery(".delete_button").unbind('click');
+	jQuery(".delete_button").click(function(){
+		var page_name = jQuery(this).attr("title");
+		delete_page(page_name);
+		if(page_name == active_checkin) // we just deleted the activity we were checked into.
+		{
+			display_main_view();
+		}
+		db.transaction(delete_activity, errorCB, successCB);
+		jQuery('#delete_button_for_'+page_name).remove();
+		function delete_activity(tx){
+			tx.executeSql('DELETE FROM ENTRIES WHERE location=?',[page_name]);
+			tx.executeSql('DELETE FROM ACTIVITIES WHERE name=?',[page_name]);
+			db.transaction(reload_activity_buttons, errorCB, successCB);
+		}
+	});
 }
