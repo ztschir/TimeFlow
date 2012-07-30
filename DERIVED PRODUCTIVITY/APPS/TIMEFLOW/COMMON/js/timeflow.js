@@ -9,8 +9,8 @@ jQuery(document).ready(function()
 
 function createDB(tx)
 {
-    //tx.executeSql('DROP TABLE IF EXISTS ENTRIES'); // need to comment this out when setting up for production
-    //tx.executeSql('DROP TABLE IF EXISTS ACTIVITIES'); // need to comment this out when setting up for production
+    tx.executeSql('DROP TABLE IF EXISTS ENTRIES'); // need to comment this out when setting up for production
+    tx.executeSql('DROP TABLE IF EXISTS ACTIVITIES'); // need to comment this out when setting up for production
 
     tx.executeSql('CREATE TABLE IF NOT EXISTS ENTRIES (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, status, location, start_time, end_time)');
     tx.executeSql('CREATE TABLE IF NOT EXISTS ACTIVITIES (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name)');
@@ -19,13 +19,11 @@ function createDB(tx)
 		{
 	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Sleep"]);
 	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Work"]);
-	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Fitness"]);
+	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Gym"]);
 	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Class"]);
 	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Study"]);
 	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["TV"]);
-	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Leisure"]);
-	    	//tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Custom1"]);
-	    	//tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Custom2"]);
+	    	tx.executeSql('INSERT INTO ACTIVITIES (name) VALUES (?)', ["Relax"]);
 		}
     });
 }
@@ -81,6 +79,10 @@ function load_activities(tx)
 		});
 		jQuery("#add_activity_button").click(function(){
 			add_activity();
+		});
+		jQuery(".activity_page_button").click(function(){
+			jQuery("#searchinput1").val("");
+			jQuery("#textarea").val("");
 		});
 		jQuery("#clear_check_in_button").click(function(){
 			showConfirm();
@@ -272,7 +274,7 @@ function display_chart()
 
 function create_button(button_name,p_char)
 {
-    jQuery("#main_view").append('<div class="ui-block-'+String.fromCharCode(p_char)+'"><a href="#'+button_name+'" data-role="button" id="button_1" data-theme="c" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-c"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">'+button_name+'</span></span></a></div>');
+    jQuery("#main_view").append('<div class="ui-block-'+String.fromCharCode(p_char)+'"><a href="#'+button_name+'" data-role="button" id="button_1" data-theme="c" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-c activity_page_button"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">'+button_name+'</span></span></a></div>');
 }
 
 function create_page(page_name)
@@ -282,7 +284,6 @@ function create_page(page_name)
                 '<a href="#home" data-icon="home" data-iconpos="left" data-role="button" data-direction="reverse">Home</a>'+
         '<h1>'+page_name+'</h1>'+
         '</div>'+
-
     '<div data-role="content">'+
 
           '<div data-role="fieldcontain">'+
