@@ -81,7 +81,7 @@ function load_activities(tx)
 		});
 		jQuery("#add_activity_button").click(function(){
 			add_activity();
-		})
+		});
 		jQuery("#clear_check_in_button").click(function(){
 			showConfirm();
 			
@@ -230,7 +230,10 @@ function display_chart()
 	    		{
 	    			if(results.rows.item(0).start != undefined)
 	    			{
-		    			data[num++] = new Array(results.rows.item(0).location,results.rows.item(0).end-results.rows.item(0).start);
+	    				if(results.rows.item(0).end != -1)
+	    					data[num++] = new Array(results.rows.item(0).location,results.rows.item(0).end-results.rows.item(0).start);
+	    				else
+	    					data[num++] = new Array(results.rows.item(0).location,Math.round((new Date()).getTime() / 1000)-results.rows.item(0).start);
 	    			}
 	    		});
     		}
